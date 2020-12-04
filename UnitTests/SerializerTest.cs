@@ -4,7 +4,7 @@ using RPPS_lab1._1;
 namespace UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class SerializerTest
     {
         [TestMethod]
         public void TestJSON()

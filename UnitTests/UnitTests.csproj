@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RPPS_lab1.1\RPPS_lab1.1.csproj" />
+    <ProjectReference Include="..\WebClient\WebClient.csproj" />
   </ItemGroup>
 
 </Project>
