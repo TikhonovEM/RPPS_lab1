@@ -47,6 +47,7 @@ namespace UnitTests
             Assert.AreEqual(HttpStatusCode.OK, client.WriteAnswer(answer));
         }
 
+        [TestMethod]
         public void TestWriteAnswerIncorrect()
         {
             var answer = "{\"SumResult\":30.30,\"MulResult\":4,\"SortedInputs\":[1.0,1.01,2.02,4.0]";
