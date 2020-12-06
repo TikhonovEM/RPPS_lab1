@@ -27,7 +27,7 @@ namespace WebClient
 
         public string GetInputData()
         {
-            Request = WebRequest.CreateHttp(Address + "/GetInputData");
+            Request = WebRequest.Create(Address + "/GetInputData");
             Request.Method = "GET";
 
             try
