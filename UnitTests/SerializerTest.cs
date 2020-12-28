@@ -49,5 +49,57 @@ namespace UnitTests
             Assert.AreEqual(entity.Price, newEntity.Price);
             Assert.AreEqual(entity.Options.Count, newEntity.Options.Count);
         }
+
+        [TestMethod]
+        public void TestJSON1()
+        {
+            var input = new Input()
+            {
+                K = 10,
+                Sums = new decimal[] { (decimal)1.01, (decimal)2.02 },
+                Muls = new int[] { 1, 4 }
+            };
+            var serializer = new JSONSerializer();
+            var inputStr = serializer.Serialize(input);
+            var newInput = serializer.Deserialize<Input>(inputStr);
+            var output = newInput.GetOutput();
+            var outputStr = serializer.Serialize(output);
+            var newOutput = serializer.Deserialize<Output>(outputStr);
+            var expected = new Output()
+            {
+                MulResult = 4,
+                SumResult = (decimal)30.30,
+                SortedInputs = new decimal[] { 1, (decimal)1.01, (decimal)2.02, 4 }
+            };
+            Assert.AreEqual(newOutput.MulResult, expected.MulResult);
+            Assert.AreEqual(newOutput.SumResult, expected.SumResult);
+            Assert.AreEqual(newOutput.SortedInputs.Length, expected.SortedInputs.Length);
+        }
+
+        [TestMethod]
+        public void TestXML1()
+        {
+            var input = new Input()
+            {
+                K = 10,
+                Sums = new decimal[] { (decimal)1.01, (decimal)2.02 },
+                Muls = new int[] { 1, 4 }
+            };
+            var serializer = new XMLSerializer();
+            var inputStr = serializer.Serialize(input);
+            var newInput = serializer.Deserialize<Input>(inputStr);
+            var output = newInput.GetOutput();
+            var outputStr = serializer.Serialize(output);
+            var newOutput = serializer.Deserialize<Output>(outputStr);
+            var expected = new Output()
+            {
+                MulResult = 4,
+                SumResult = (decimal)30.30,
+                SortedInputs = new decimal[] { 1, (decimal)1.01, (decimal)2.02, 4 }
+            };
+            Assert.AreEqual(newOutput.MulResult, expected.MulResult);
+            Assert.AreEqual(newOutput.SumResult, expected.SumResult);
+            Assert.AreEqual(newOutput.SortedInputs.Length, expected.SortedInputs.Length);
+        }
     }
 }

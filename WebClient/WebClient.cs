@@ -74,7 +74,7 @@ namespace WebClient
             return false;
         }
 
-        public HttpStatusCode? WriteAnswer(string objectStr)
+        public HttpStatusCode WriteAnswer(string objectStr)
         {
             Request = WebRequest.Create(Address + "/WriteAnswer");
             Request.Method = "POST";
@@ -83,14 +83,22 @@ namespace WebClient
             Request.ContentLength = data.Length;
             try
             {
-                var dataStream = Request.GetRequestStream();
+                using var dataStream = Request.GetRequestStream();
                 dataStream.Write(data, 0, data.Length);
                 dataStream.Close();
                 var response = (HttpWebResponse)Request.GetResponse();
                 return response.StatusCode;
             }
-            catch { }
-            return null;
+            catch(Exception e) 
+            {
+                if (e is WebException we)
+                {
+                    return (we.Response as HttpWebResponse).StatusCode;
+                }
+                else
+                    throw e;
+            }
+            //return null;
         }
     }
 }
